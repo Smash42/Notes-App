@@ -50,9 +50,7 @@
                     activeNote() {
                         return this.notes.filter(note => !note.complete)
                     },
-                    deleteNote() {              
-                        return this.notes.filter(note => complete)
-                    }
+
                 },
 
         methods: {
@@ -63,7 +61,16 @@
                     id: this.notes.length +1
                 })
                 this.newNote = '';
-            }
+            },
+
+            deleteIfSelected(noteToDelete) {
+                if(noteToDelete.complete) {
+                    const index = this.items.findIndex(note => note === noteToDelete);
+                    if (index !== -1){
+                        this.notes.splice(index, 1);
+                    }
+                }   
+            },
         }    
     };
     Vue.createApp(app).mount('#app');
