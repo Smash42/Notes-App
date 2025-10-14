@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" class="h-full" >
+<head>
+    <meta charset="UTF-8">
+    <title>Notes App</title>
+    <script src="https://unpkg.com/vue@3" > </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    
+</head>
+
+<body>
+  <div id="app">
+    <section class="block has-background-success has-text-black px-2 py-2 ">
+        <h2 class="is-size-4"> Create A Note To Be Added</h2>
+
+        <form @submit.prevent="addNote" class="box py-2 has-background-success-light">
+            <input class="pl-1 is-size-6 mt-1"  v-model="newNote" placeholder="type here...">
+            <button class="button is-small is-rounded is-outlined is-black has-background-warning-light" type="submit" > Add Note </button>
+        </form>
+
+    </section>
+
+    <section class="block has-background-info has-text-black px-2 py-2">
+        <h2 class="is-size-4"> Notes Created </h2>
+
+         <ul >
+          <li class="box has-background-info-light has-text-black is-size-6 py-2" v-for="note in activeNote" :key="note.id">                             
+               <input type="checkbox" class="delete has-background-danger" v-model="note.complete" /> 
+                <labe class="px-3">
+                {{note.name}}
+                </labe>
+          </li>
+          </ul>  
+
+    </section>
+    
+  </div>
+
+  <script>
+    let app ={
+        data() {
+            return {
+                notes: [
+                    {name: "Taking Notes to later delete.", complete: false, id:0},
+                ],
+                newNote: ''
+            };
+        },
+        computed: {
+                    activeNote() {
+                        return this.notes.filter(note => !note.complete)
+                    },
+                    deleteNote() {              
+                        return this.notes.filter(note => complete)
+                    }
+                },
+
+        methods: {
+            addNote() {
+                this.notes.push ({
+                    name: this.newNote,
+                    complete: false,
+                    id: this.notes.length +1
+                })
+                this.newNote = '';
+            }
+        }    
+    };
+    Vue.createApp(app).mount('#app');
+  </script>
+</body>
+</html>
